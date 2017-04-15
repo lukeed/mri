@@ -1,0 +1,25 @@
+{
+  "name": "vet",
+  "version": "0.0.0",
+  "description": "Careful vetting for CLI flags and arguments",
+  "license": "MIT",
+  "repository": "lukeed/vet",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "author": {
+    "name": "Luke Edwards",
+    "email": "luke.edwards05@gmail.com",
+    "url": "lukeed.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [
+    ""
+  ]
+}
