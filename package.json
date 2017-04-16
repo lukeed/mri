@@ -1,7 +1,7 @@
 {
   "name": "vet",
   "version": "0.0.0",
-  "description": "Careful vetting for CLI flags and arguments",
+  "description": "Quick vetting for CLI flags and arguments",
   "license": "MIT",
   "repository": "lukeed/vet",
   "main": "lib/index.js",

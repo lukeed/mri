@@ -1,6 +1,6 @@
 # vet [![Build Status](https://travis-ci.org/lukeed/vet.svg?branch=master)](https://travis-ci.org/lukeed/vet)
 
-> Careful vetting for CLI flags and arguments
+> Quick vetting for CLI flags and arguments
 
 
 ## Install
