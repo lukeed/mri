@@ -17,9 +17,18 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": ""
+    "test": "prettier --single-quote --use-tabs --print-width=100 --write 'lib/*.js'"
   },
   "keywords": [
-    ""
-  ]
+    "argv",
+    "arguments",
+    "cli",
+    "minimist",
+    "options",
+    "optimist",
+    "parser"
+  ],
+  "devDependencies": {
+    "prettier": "^1.1.0"
+  }
 }
