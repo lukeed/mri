@@ -1,6 +1,6 @@
 {
   "name": "mri",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Quickly scan for CLI flags and arguments",
   "license": "MIT",
   "repository": "lukeed/mri",
