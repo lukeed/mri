@@ -1,9 +1,9 @@
 {
-  "name": "vet",
+  "name": "mri",
   "version": "0.0.0",
-  "description": "Quick vetting for CLI flags and arguments",
+  "description": "Quickly scan for CLI flags and arguments",
   "license": "MIT",
-  "repository": "lukeed/vet",
+  "repository": "lukeed/mri",
   "main": "lib/index.js",
   "files": [
     "lib"

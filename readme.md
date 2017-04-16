@@ -1,10 +1,10 @@
-# vet [![Build Status](https://travis-ci.org/lukeed/vet.svg?branch=master)](https://travis-ci.org/lukeed/vet)
+# mri [![Build Status](https://travis-ci.org/lukeed/mri.svg?branch=master)](https://travis-ci.org/lukeed/mri)
 
-> Quick vetting for CLI flags and arguments
+> Quickly scan for CLI flags and arguments
 
 This is a *very* basic, fast, and lightweight alternative to [`minimist`](https://github.com/substack/minimist). It only exists because I find that I usually don't need most of what `minimist` has to offer.
 
-For now, there's no configuration options. Instead, `vet` just parses raw CLI flags (single or group) and assigns a value to those keys.
+For now, there's no configuration options. Instead, `mri` just parses raw CLI flags (single or group) and assigns a value to those keys.
 
 > **Note:** Defaults, aliases, and type-casting are not supported. However, this _may_ change in the future. :thinking:
 
@@ -12,7 +12,7 @@ For now, there's no configuration options. Instead, `vet` just parses raw CLI fl
 ## Install
 
 ```
-$ npm install --save vet
+$ npm install --save mri
 ```
 
 
@@ -23,17 +23,17 @@ $ demo-cli --foo --bar=baz -mtv -- hello world
 ```
 
 ```js
-const vet = require('vet');
+const mri = require('mri');
 
 const args = process.argv.slice(2);
 
-vet(args);
+mri(args);
 //=> { _: ['hello', 'world'], foo:true, bar:'baz', m:true, t:true, v:true }
 ```
 
 ## API
 
-### vet(args)
+### mri(args)
 
 #### args
 
