@@ -2,6 +2,7 @@ const Table = require('cli-table2');
 const { Suite } = require('benchmark');
 const yargs = require('yargs-parser');
 const minimist = require('minimist');
+const old = require('../lib/old');
 const mri = require('../lib');
 
 const bench = new Suite();
@@ -9,7 +10,8 @@ const args = ['-b', '--bool', '--no-meep', '--multi=baz'];
 
 bench
 	.add('mri', () => mri(args))
-	.add('yargs', () => yargs(args))
+	.add('old', () => old(args))
+	// .add('yargs', () => yargs(args))
 	.add('minimist', () => minimist(args))
 	.on('cycle', e => console.log(String(e.target)))
 	.on('complete', function() {
