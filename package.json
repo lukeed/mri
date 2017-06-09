@@ -18,7 +18,7 @@
   },
   "scripts": {
     "bench": "node bench",
-    "test": "prettier --single-quote --use-tabs --print-width=100 --write 'lib/*.js'"
+    "precommit": "prettier --single-quote --use-tabs --print-width=100 --write 'lib/*.js'"
   },
   "keywords": [
     "argv",
@@ -30,6 +30,7 @@
     "parser"
   ],
   "devDependencies": {
+    "husky": "^0.13.4",
     "prettier": "^1.1.0"
   }
 }
