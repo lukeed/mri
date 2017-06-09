@@ -2,7 +2,7 @@
 
 > Quickly scan for CLI flags and arguments
 
-This is a *very* basic, fast, and lightweight alternative to [`minimist`](https://github.com/substack/minimist). It only exists because I find that I usually don't need most of what `minimist` has to offer.
+This is a *very* basic, [fast](#benchmarks), and lightweight alternative to [`minimist`](https://github.com/substack/minimist). It only exists because I find that I usually don't need most of what `minimist` has to offer.
 
 For now, there's no configuration options. Instead, `mri` just parses raw CLI flags (single or group) and assigns a value to those keys.
 
@@ -41,6 +41,18 @@ Type: `array`<br>
 Default: `[]`
 
 An array of arguments to parse. For CLI usage, send `process.argv.slice(2)`. See [`process.argv`](https://nodejs.org/docs/latest/api/process.html#process_process_argv) for info.
+
+
+## Benchmarks
+
+```
+mri
+  --> 480,200 ops/sec ±0.23% (91 runs sampled)
+yargs
+  --> 16,388 ops/sec ±0.56% (89 runs sampled)
+minimist
+  --> 144,801 ops/sec ±0.81% (89 runs sampled)
+```
 
 
 ## License
