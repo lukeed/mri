@@ -17,6 +17,7 @@
     "node": ">=4"
   },
   "scripts": {
+    "bench": "node bench",
     "test": "prettier --single-quote --use-tabs --print-width=100 --write 'lib/*.js'"
   },
   "keywords": [
