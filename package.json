@@ -18,7 +18,8 @@
   },
   "scripts": {
     "bench": "node bench",
-    "precommit": "prettier --single-quote --use-tabs --print-width=100 --write 'lib/*.js'"
+    "precommit": "prettier --single-quote --use-tabs --print-width=100 --write '{lib,test}/*.js'",
+    "test": "tape test/*.js | tap-spec"
   },
   "keywords": [
     "argv",
@@ -31,6 +32,8 @@
   ],
   "devDependencies": {
     "husky": "^0.13.4",
-    "prettier": "^1.1.0"
+    "prettier": "^1.1.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
   }
 }
