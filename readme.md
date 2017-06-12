@@ -2,9 +2,11 @@
 
 > Quickly scan for CLI flags and arguments
 
-This is a basic, [fast](#benchmarks), and lightweight alternative to [`minimist`](https://github.com/substack/minimist) and [`yargs-parser`](https://github.com/yargs/yargs-parser).
+This is a [fast](#benchmarks) and lightweight alternative to [`minimist`](https://github.com/substack/minimist) and [`yargs-parser`](https://github.com/yargs/yargs-parser).
 
-It only exists because I find that I usually don't need most of what `minimist` and `yargs-parser` have to offer. However, `mri` is similar _enough_ that it might function as a drop-in replacement for you, too! See [Comparisons](#comparisons) for more info.
+It only exists because I find that I usually don't need most of what `minimist` and `yargs-parser` have to offer. However, `mri` is similar _enough_ that it might function as a "drop-in replacement" for you, too!
+
+See [Comparisons](#comparisons) for more info.
 
 
 ## Install
