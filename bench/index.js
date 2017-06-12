@@ -2,17 +2,17 @@ const Table = require('cli-table2');
 const { Suite } = require('benchmark');
 const yargs = require('yargs-parser');
 const minimist = require('minimist');
-const old = require('../lib/old');
-const mri = require('../lib');
+const previous = require('mri');
+const curr = require('../lib');
 
 const bench = new Suite();
 const args = ['-b', '--bool', '--no-meep', '--multi=baz'];
 
 bench
-	.add('mri', () => mri(args))
-	.add('old', () => old(args))
-	// .add('yargs', () => yargs(args))
+	.add('mri', () => curr(args))
+	.add('yargs', () => yargs(args))
 	.add('minimist', () => minimist(args))
+	.add('mri (previous)', () => previous(args))
 	.on('cycle', e => console.log(String(e.target)))
 	.on('complete', function() {
 		console.log('Fastest is ' + this.filter('fastest').map('name'));
