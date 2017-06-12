@@ -67,6 +67,28 @@ test('flag boolean value', t => {
 	t.end();
 });
 
+test('flag default value', t => {
+	const res = fn(['--foo'], {
+		default: { bar: true }
+	});
+	t.deepEqual(res, { foo: true, bar: true, _: [] });
+	t.equal(typeof res.foo, 'boolean');
+	t.equal(typeof res.bar, 'boolean');
+	t.end();
+});
+
+test('flag default and alias', t => {
+	const res = fn(['--foo'], {
+		default: { bar: true },
+		alias: { bar: 'b' }
+	});
+	t.deepEqual(res, { foo: true, bar: true, b: true, _: [] });
+	t.equal(typeof res.foo, 'boolean');
+	t.equal(typeof res.bar, 'boolean');
+	t.equal(typeof res.b, 'boolean');
+	t.end();
+});
+
 // test('newlines in params' , t => {
 //    var args = fn(['-s', "X\nX"])
 //    t.deepEqual(args, { _ : [], s : "X\nX" });
@@ -101,7 +123,7 @@ test('stringArgs', t => {
 	t.end();
 });
 
-test('empty strings', function(t) {
+test('empty strings', t => {
 	const s = fn(['-s'], { string: 's' }).s;
 	t.equal(typeof s, 'string');
 	t.equal(s, '');
@@ -119,7 +141,7 @@ test('empty strings', function(t) {
 	t.end();
 });
 
-test('string and alias', function(t) {
+test('string and alias', t => {
 	const x = fn(['--str', '000123'], {
 		string: 's',
 		alias: { s: 'str' }
