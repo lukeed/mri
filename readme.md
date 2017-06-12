@@ -47,11 +47,11 @@ An array of arguments to parse. For CLI usage, send `process.argv.slice(2)`. See
 
 ```
 mri
-  --> 330,717 ops/sec ±0.23% (92 runs sampled)
+  --> 328,452 ops/sec ±0.28% (92 runs sampled)
 yargs
-  --> 16,350 ops/sec ±0.49% (94 runs sampled)
+  --> 16,014 ops/sec ±0.69% (94 runs sampled)
 minimist
-  --> 134,554 ops/sec ±0.74% (90 runs sampled)
+  --> 131,896 ops/sec ±0.92% (90 runs sampled)
 ```
 
 
