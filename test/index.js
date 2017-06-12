@@ -1,5 +1,4 @@
 const test = require('tape');
-// const fn = require('../lib/old');
 const fn = require('../lib');
 
 test('parse args', t => {
