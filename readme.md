@@ -93,6 +93,17 @@ Default: `[]`
 
 A single key (or array of keys) that should be parsed as `String`s.
 
+#### options.unknown
+
+Type: `function`<br>
+Default: `undefined`
+
+Callback that is run when a parsed flag has not been defined as a known key or alias. Its only parameter is the unknown flag itself; eg `--foobar` or `-f`.
+
+Once an unknown flag is encountered, parsing will terminate, regardless of your return value.
+
+> **Note:** `mri` _only_ checks for unknown flags if `options.unknown` **and** `options.alias` are populated. Otherwise, everything will be accepted.
+
 
 ## Comparisons
 
@@ -109,9 +120,10 @@ A single key (or array of keys) that should be parsed as `String`s.
     mri(['-abc', 'hello']);
     //=> { _:[], a:true, b:true, c:'hello' }
     ```
+- The `opts.unknown` behaves differently:
+  - Unlike `minimist`, `mri` will not continue continue parsing after encountering an unknown flag
 - Missing `options`:
   - `opts.stopEarly`
-  - `opts.unknown`
   - `opts['--']`
 - Ignores newlines (`\n`) within args (see [test](https://github.com/substack/minimist/blob/master/test/parse.js#L69-L80))
 - Ignores slashBreaks within args (see [test](https://github.com/substack/minimist/blob/master/test/parse.js#L147-L157))
@@ -135,6 +147,7 @@ A single key (or array of keys) that should be parsed as `String`s.
   - `opts['--']`
 - Missing [`parser.detailed()`](https://github.com/yargs/yargs-parser#requireyargs-parserdetailedargs-opts) method
 - No [additional configuration](https://github.com/yargs/yargs-parser#configuration) object
+- Added [`options.unknown`](##optionsunknown) feature
 
 
 ## Benchmarks
