@@ -141,11 +141,11 @@ A single key (or array of keys) that should be parsed as `String`s.
 
 ```
 mri
-  --> 328,452 ops/sec ±0.28% (92 runs sampled)
+  --> 329,310 ops/sec ±0.27% (88 runs sampled)
 yargs
-  --> 16,014 ops/sec ±0.69% (94 runs sampled)
+  --> 16,100 ops/sec ±0.57% (91 runs sampled)
 minimist
-  --> 131,896 ops/sec ±0.92% (90 runs sampled)
+  --> 129,670 ops/sec ±0.72% (93 runs sampled)
 ```
 
 
