@@ -28,7 +28,8 @@
     "minimist",
     "options",
     "optimist",
-    "parser"
+    "parser",
+    "args"
   ],
   "devDependencies": {
     "husky": "^0.13.4",
