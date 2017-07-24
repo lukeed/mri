@@ -8,15 +8,15 @@ It only exists because I find that I usually don't need most of what `minimist` 
 
 See [Comparisons](#comparisons) for more info.
 
-
-## Install
-
-```
-$ npm install --save mri
-```
-
-
 ## Usage
+
+Firstly, install the package:
+
+```
+npm install --save mri
+```
+
+Then start using it:
 
 ```sh
 $ demo-cli --foo --bar=baz -mtv -- hello world
@@ -149,7 +149,6 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
 - No [additional configuration](https://github.com/yargs/yargs-parser#configuration) object
 - Added [`options.unknown`](##optionsunknown) feature
 
-
 ## Benchmarks
 
 ```
@@ -160,7 +159,6 @@ yargs
 minimist
   --> 129,670 ops/sec ±0.72% (93 runs sampled)
 ```
-
 
 ## License
 
