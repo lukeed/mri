@@ -159,3 +159,7 @@ yargs
 minimist
   --> 129,670 ops/sec ±0.72% (93 runs sampled)
 ```
+
+## License
+
+MIT © [Luke Edwards](https://lukeed.com)
