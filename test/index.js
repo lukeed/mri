@@ -25,6 +25,8 @@ test('comprehensive', t => {
 			'--bool',
 			'--no-meep',
 			'--multi=baz',
+			'--number=-123',
+			'--zeronum=0',
 			'--',
 			'--not-a-flag',
 			'eek'
@@ -41,6 +43,8 @@ test('comprehensive', t => {
 			multi: ['quux', 'baz'],
 			meep: false,
 			name: 'meowmers',
+			number: -123,
+			zeronum: 0,
 			_: ['bare', '--not-a-flag', 'eek']
 		}
 	);
