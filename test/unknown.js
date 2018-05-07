@@ -1,6 +1,45 @@
 const test = require('tape');
 const fn = require('../lib');
 
+test('boolean is not unknown', t => {
+	const unknown = [];
+	const unknownFn = arg => (unknown.push(arg), false);
+	const argv = ['--herp'];
+	const opts = {
+		boolean: 'herp',
+		unknown: unknownFn
+	};
+	const aliasedArgv = fn(argv, opts);
+	t.same(unknown, []);
+	t.end();
+});
+
+test('string is not unknown', t => {
+	const unknown = [];
+	const unknownFn = arg => (unknown.push(arg), false);
+	const argv = ['--herp herp'];
+	const opts = {
+		string: 'herp',
+		unknown: unknownFn
+	};
+	const aliasedArgv = fn(argv, opts);
+	t.same(unknown, []);
+	t.end();
+});
+
+test('default is not unknown', t => {
+	const unknown = [];
+	const unknownFn = arg => (unknown.push(arg), false);
+	const argv = ['--herp'];
+	const opts = {
+		default: { herp: false },
+		unknown: unknownFn
+	};
+	const aliasedArgv = fn(argv, opts);
+	t.same(unknown, []);
+	t.end();
+});
+
 test('boolean and alias is not unknown', t => {
 	const unknown = [];
 	const unknownFn = arg => (unknown.push(arg), false);
