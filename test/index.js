@@ -225,3 +225,9 @@ test('parse with modifier functions' , t => {
 	t.same(argv, { b:true, _:[123] });
 	t.end();
 });
+
+test('flag default null value', t => {
+	const argv = fn(['--foo'], { default: { bar:null }});
+	t.same(argv, { foo:true, bar:null, _:[] });
+	t.end();
+});
