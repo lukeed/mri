@@ -8,15 +8,13 @@ It only exists because I find that I usually don't need most of what `minimist` 
 
 See [Comparisons](#comparisons) for more info.
 
+## Install
+
+```sh
+$ npm install --save mri
+```
+
 ## Usage
-
-Firstly, install the package:
-
-```
-npm install --save mri
-```
-
-Then start using it:
 
 ```sh
 $ demo-cli --foo --bar=baz -mtv -- hello world
@@ -25,15 +23,15 @@ $ demo-cli --foo --bar=baz -mtv -- hello world
 ```js
 const mri = require('mri');
 
-const args = process.argv.slice(2);
+const argv = process.argv.slice(2);
 
-mri(args);
+mri(argv);
 //=> { _: ['hello', 'world'], foo:true, bar:'baz', m:true, t:true, v:true }
 
-mri(args, { boolean:['bar'] });
+mri(argv, { boolean:['bar'] });
 //=> { _: ['baz', 'hello', 'world'], foo:true, bar:true, m:true, t:true, v:true }
 
-mri(args, {
+mri(argv, {
   alias: {
     b: 'bar',
     foo: ['f', 'fuz']
@@ -45,31 +43,28 @@ mri(args, {
 ## API
 
 ### mri(args, options)
+Return: `Object`
 
 #### args
-
-Type: `array`<br>
+Type: `Array`<br>
 Default: `[]`
 
 An array of arguments to parse. For CLI usage, send `process.argv.slice(2)`. See [`process.argv`](https://nodejs.org/docs/latest/api/process.html#process_process_argv) for info.
 
 #### options.alias
-
-Type: `object`<br>
+Type: `Object`<br>
 Default: `{}`
 
-An object of keys whose values are a `string` or `array` of aliases. These will be added to the parsed output with matching values.
+An object of keys whose values are `String`s or `Array<String>` of aliases. These will be added to the parsed output with matching values.
 
 #### options.boolean
-
-Type: `array|string`<br>
+Type: `Array|String`<br>
 Default: `[]`
 
 A single key (or array of keys) that should be parsed as `Boolean`s.
 
 #### options.default
-
-Type: `object`<br>
+Type: `Object`<br>
 Default: `{}`
 
 An `key:value` object of defaults. If a default is provided for a key, its type (`typeof`) will be used to cast parsed arguments.
@@ -79,23 +74,21 @@ mri(['--foo', 'bar']);
 //=> { _:[], foo:'bar' }
 
 mri(['--foo', 'bar'], {
-  default:{ foo:true, baz:'hello', bat:42 }
+  default: { foo:true, baz:'hello', bat:42 }
 });
 //=> { _:['bar'], foo:true, baz:'hello', bat:42 }
 ```
 
-> **Note:** Because `--foo` has a default of `true`, its output is cast to a boolean. This means that `foo:true`, which makes `'bar'` an extra argument (`_` key).
+> **Note:** Because `--foo` has a default of `true`, its output is cast to a Boolean. This means that `foo=true`, making `'bar'` an extra argument (`_` key).
 
 #### options.string
-
-Type: `array|string`<br>
+Type: `Array|String`<br>
 Default: `[]`
 
 A single key (or array of keys) that should be parsed as `String`s.
 
 #### options.unknown
-
-Type: `function`<br>
+Type: `Function`<br>
 Default: `undefined`
 
 Callback that is run when a parsed flag has not been defined as a known key or alias. Its only parameter is the unknown flag itself; eg `--foobar` or `-f`.
@@ -109,7 +102,7 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
 
 #### minimist
 
-- `mri` is 2.5x faster (see [benchmarks](#benchmarks))
+- `mri` is 5x faster (see [benchmarks](#benchmarks))
 - Numerical values are cast as `Number`s when possible
   - A key (and its aliases) will always honor `opts.boolean` or `opts.string`
 - Short flag groups are treated as `Boolean`s by default:
@@ -131,7 +124,7 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
 
 #### yargs-parser
 
-- `mri` is 20x faster (see [benchmarks](#benchmarks))
+- `mri` is 38x faster (see [benchmarks](#benchmarks))
 - Numerical values are cast as `Number`s when possible
   - A key (and its aliases) will always honor `opts.boolean` or `opts.string`
 - Missing `options`:
@@ -147,17 +140,18 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
   - `opts['--']`
 - Missing [`parser.detailed()`](https://github.com/yargs/yargs-parser#requireyargs-parserdetailedargs-opts) method
 - No [additional configuration](https://github.com/yargs/yargs-parser#configuration) object
-- Added [`options.unknown`](##optionsunknown) feature
+- Added [`options.unknown`](#optionsunknown) feature
+
 
 ## Benchmarks
 
 ```
-mri
-  --> 329,310 ops/sec ±0.27% (88 runs sampled)
-yargs
-  --> 16,100 ops/sec ±0.57% (91 runs sampled)
-minimist
-  --> 129,670 ops/sec ±0.72% (93 runs sampled)
+# Node v10.13.0
+
+minimist      x   326,566 ops/sec ±1.39% (93 runs sampled)
+mri           x 1,576,199 ops/sec ±1.93% (94 runs sampled)
+nopt          x   925,964 ops/sec ±0.25% (91 runs sampled)
+yargs-parser  x    40,187 ops/sec ±2.13% (91 runs sampled)
 ```
 
 ## License
