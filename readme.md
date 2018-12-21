@@ -124,7 +124,7 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
 
 #### yargs-parser
 
-- `mri` is 38x faster (see [benchmarks](#benchmarks))
+- `mri` is 40x faster (see [benchmarks](#benchmarks))
 - Numerical values are cast as `Number`s when possible
   - A key (and its aliases) will always honor `opts.boolean` or `opts.string`
 - Missing `options`:
@@ -148,10 +148,10 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
 ```
 # Node v10.13.0
 
-minimist      x   326,566 ops/sec ±1.39% (93 runs sampled)
-mri           x 1,576,199 ops/sec ±1.93% (94 runs sampled)
-nopt          x   925,964 ops/sec ±0.25% (91 runs sampled)
-yargs-parser  x    40,187 ops/sec ±2.13% (91 runs sampled)
+minimist      x   324,469 ops/sec ±1.20% (96 runs sampled)
+mri           x 1,611,167 ops/sec ±0.22% (96 runs sampled)
+nopt          x   920,029 ops/sec ±1.13% (97 runs sampled)
+yargs-parser  x    39,542 ops/sec ±1.14% (95 runs sampled)
 ```
 
 ## License
