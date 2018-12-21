@@ -1,9 +1,9 @@
 {
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "cli-table2": "^0.2.0",
     "minimist": "^1.2.0",
     "mri": "^0.1.0",
-    "yargs-parser": "^7.0.0"
+    "nopt": "^4.0.1",
+    "yargs-parser": "^11.1.1"
   }
 }
