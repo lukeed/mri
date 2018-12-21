@@ -219,3 +219,9 @@ test('multiAlias', t => {
 //    t.same(argv.beep, { boop : true });
 //    t.end();
 // });
+
+test('parse with modifier functions' , t => {
+	const argv = fn(['-b', '123'], { boolean:'b' });
+	t.same(argv, { b:true, _:[123] });
+	t.end();
+});
