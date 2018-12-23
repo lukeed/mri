@@ -9,10 +9,10 @@ const bench = new Suite();
 const args = ['-b', '--bool', '--no-meep', '--multi=baz'];
 
 bench
-	.add('minimist    ', () => minimist(args))
-	.add('mri (prev)  ', () => previous(args))
-	.add('mri         ', () => mri(args))
-	.add('nopt        ', () => nopt(args))
-	.add('yargs-parser', () => yargs(args))
+	.add('minimist     ', () => minimist(args))
+	.add('mri (1.1.1)  ', () => previous(args))
+	.add('mri          ', () => mri(args))
+	.add('nopt         ', () => nopt(args))
+	.add('yargs-parser ', () => yargs(args))
 	.on('cycle', e => console.log(String(e.target)))
 	.run();
