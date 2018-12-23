@@ -231,3 +231,18 @@ test('flag default null value', t => {
 	t.same(argv, { foo:true, bar:null, _:[] });
 	t.end();
 });
+
+test('flag boolean with default', t => {
+	const foo = fn(['-t'], { default: { t:true }});
+	t.same(foo, { t:true, _:[] });
+	t.is(typeof foo.t, 'boolean');
+
+	const bar = fn(['-t'], { default: { t:false }});
+	t.same(bar, { t:true, _:[] });
+	t.is(typeof bar.t, 'boolean');
+
+	const baz = fn(['--no-two'], { default: { two:true }});
+	t.same(baz, { two:false, _:[] });
+	t.is(typeof baz.two, 'boolean');
+	t.end();
+});
