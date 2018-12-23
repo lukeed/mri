@@ -246,3 +246,37 @@ test('flag boolean with default', t => {
 	t.is(typeof baz.two, 'boolean');
 	t.end();
 });
+
+test('flag boolean with default & alias', t => {
+	const alias = { t: ['tt'], two:['toot'] };
+
+	const foo = fn(['-t'], { alias, default: { t:true }});
+	t.same(foo, { t:true, tt:true, _:[] });
+	t.is(typeof foo.t, 'boolean');
+
+	const bar = fn(['-t'], { alias, default: { t:false }});
+	t.same(bar, { t:true, tt:true, _:[] });
+	t.is(typeof bar.t, 'boolean');
+
+	const baz = fn(['--no-two'], { alias, default: { two:true }});
+	t.same(baz, { two:false, toot:false, _:[] });
+	t.is(typeof baz.two, 'boolean');
+
+	t.end();
+});
+
+test('flag boolean with default string & alias', t => {
+	const foo = fn(['-t'], { default: { t:'hi' }});
+	t.same(foo, { t:'', _:[] });
+	t.is(typeof foo.t, 'string');
+
+	const bar = fn(['-t'], { alias:{ t:'tt' }, default: { t:'boo' }});
+	t.same(bar, { t:'', tt:'', _:[] });
+	t.is(typeof bar.t, 'string');
+
+	// --no-* overrides
+	const baz = fn(['--no-two'], { default: { two:'hi' }});
+	t.same(baz, { two:false, _:[] });
+	t.is(typeof baz.two, 'boolean');
+	t.end();
+});
