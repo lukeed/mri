@@ -93,6 +93,54 @@ test('flag default and alias', t => {
 	t.end();
 });
 
+test('flag default string w/ alias', t => {
+	t.deepEqual(
+		fn(['--arg', '01'], {
+			alias: { a: ['arg'] },
+			default: { arg: '' },
+		}),
+		{ _: [], arg: '01', a: '01' }
+	);
+
+	t.deepEqual(
+		fn(['-a', '01'], {
+			alias: { a: ['arg'] },
+			default: { arg: '' },
+		}),
+		{ _: [], arg: '01', a: '01' }
+	);
+
+	// ---
+
+	t.deepEqual(
+		fn(['-a', '01'], {
+			alias: { arg: ['a'] },
+			default: { a: '' },
+		}),
+		{ _: [], arg: '01', a: '01' }
+	);
+
+	t.deepEqual(
+		fn(['--arg', '01'], {
+			alias: { arg: ['a'] },
+			default: { a: '' },
+		}),
+		{ _: [], arg: '01', a: '01' }
+	);
+
+	// ---
+
+	t.deepEqual(
+		fn(['-a', '01'], {
+			alias: { arg: ['a'] },
+			default: { arg: '' },
+		}),
+		{ _: [], arg: '01', a: '01' }
+	);
+
+	t.end();
+});
+
 // test('newlines in params' , t => {
 //    var args = fn(['-s', "X\nX"])
 //    t.deepEqual(args, { _ : [], s : "X\nX" });
