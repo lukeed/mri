@@ -145,13 +145,13 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
 
 ## Benchmarks
 
-```
-# Node v10.13.0
+> Running Node.js v10.13.0
 
-minimist      x   324,469 ops/sec ±1.20% (96 runs sampled)
-mri           x 1,611,167 ops/sec ±0.22% (96 runs sampled)
-nopt          x   920,029 ops/sec ±1.13% (97 runs sampled)
-yargs-parser  x    39,542 ops/sec ±1.14% (95 runs sampled)
+```
+minimist      x    312,417 ops/sec ±0.85% (93 runs sampled)
+mri           x  1,641,208 ops/sec ±0.24% (93 runs sampled)
+nopt          x    910,276 ops/sec ±1.11% (88 runs sampled)
+yargs-parser  x     40,943 ops/sec ±1.37% (93 runs sampled)
 ```
 
 ## License
