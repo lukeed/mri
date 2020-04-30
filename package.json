@@ -14,7 +14,7 @@
     "url": "lukeed.com"
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=10"
   },
   "scripts": {
     "bench": "node bench",
@@ -31,7 +31,8 @@
     "args"
   ],
   "devDependencies": {
-    "tap-spec": "^4.1.1",
-    "tape": "^4.6.3"
+    "eslint": "^6.8.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.0.0"
   }
 }
