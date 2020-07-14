@@ -20,6 +20,7 @@
   "scripts": {
     "build": "bundt",
     "bench": "node bench",
+    "pretest": "npm run build",
     "test": "tape test/*.js | tap-spec"
   },
   "keywords": [
