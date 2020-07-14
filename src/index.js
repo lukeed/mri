@@ -12,7 +12,7 @@ function toVal(out, key, val, opts) {
 	out[key] = old == null ? nxt : (Array.isArray(old) ? old.concat(nxt) : [old, nxt]);
 }
 
-module.exports = function (args, opts) {
+export default function (args, opts) {
 	args = args || [];
 	opts = opts || {};
 
