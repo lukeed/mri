@@ -1,4 +1,4 @@
-# mri [![Build Status](https://travis-ci.org/lukeed/mri.svg?branch=master)](https://travis-ci.org/lukeed/mri)
+# mri [![CI](https://github.com/lukeed/mri/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/lukeed/mri/actions)
 
 > Quickly scan for CLI flags and arguments
 
