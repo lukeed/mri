@@ -1,10 +1,26 @@
-const nopt = require('nopt');
-const previous = require('mri');
-const yargs = require('yargs-parser');
 const { Suite } = require('benchmark');
-const minimist = require('minimist');
-const mri = require('../lib');
+const previous = require('mri');
 
+console.log('Load Times:');
+
+console.time('nopt');
+const nopt = require('nopt');
+console.timeEnd('nopt');
+
+console.time('yargs-parser');
+const yargs = require('yargs-parser');
+console.timeEnd('yargs-parser');
+
+console.time('minimist');
+const minimist = require('minimist');
+console.timeEnd('minimist');
+
+console.time('mri');
+const mri = require('../lib');
+console.timeEnd('mri');
+
+
+console.log('\nBenchmark:');
 const bench = new Suite();
 const args = ['-b', '--bool', '--no-meep', '--multi=baz'];
 
