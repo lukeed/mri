@@ -12,7 +12,7 @@ function toVal(out, key, val, opts) {
 	out[key] = old == null ? nxt : (Array.isArray(old) ? old.concat(nxt) : [old, nxt]);
 }
 
-export default function (args, opts) {
+const mri = (args, opts) {
 	args = args || [];
 	opts = opts || {};
 
@@ -117,3 +117,5 @@ export default function (args, opts) {
 
 	return out;
 }
+
+module.exports = mri
