@@ -12,7 +12,7 @@ function toVal(out, key, val, opts) {
 	out[key] = old == null ? nxt : (Array.isArray(old) ? old.concat(nxt) : [old, nxt]);
 }
 
-const mri = (args, opts) {
+const mri = (args, opts) => {
 	args = args || [];
 	opts = opts || {};
 
