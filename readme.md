@@ -1,4 +1,4 @@
-# mri [![CI](https://github.com/lukeed/mri/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/lukeed/mri/actions)
+# mri [![CI](https://github.com/lukeed/mri/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/lukeed/mri/actions) [![licenses](https://licenses.dev/b/npm/mri)](https://licenses.dev/npm/mri)
 
 > Quickly scan for CLI flags and arguments
 
