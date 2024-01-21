@@ -2,7 +2,7 @@
 
 > Quickly scan for CLI flags and arguments
 
-This is a [fast](#benchmarks) and lightweight alternative to [`minimist`](https://github.com/substack/minimist) and [`yargs-parser`](https://github.com/yargs/yargs-parser).
+This is a [fast](#benchmarks) and lightweight alternative to [`minimist`](https://github.com/minimistjs/minimist) and [`yargs-parser`](https://github.com/yargs/yargs-parser).
 
 It only exists because I find that I usually don't need most of what `minimist` and `yargs-parser` have to offer. However, `mri` is similar _enough_ that it might function as a "drop-in replacement" for you, too!
 
@@ -118,9 +118,9 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
 - Missing `options`:
   - `opts.stopEarly`
   - `opts['--']`
-- Ignores newlines (`\n`) within args (see [test](https://github.com/substack/minimist/blob/master/test/parse.js#L69-L80))
-- Ignores slashBreaks within args (see [test](https://github.com/substack/minimist/blob/master/test/parse.js#L147-L157))
-- Ignores dot-nested flags (see [test](https://github.com/substack/minimist/blob/master/test/parse.js#L180-L197))
+- Ignores newlines (`\n`) within args (see [test](https://github.com/minimistjs/minimist/blob/2edc957fb668c81e2bd9e93748866a30ab33b28e/test/parse.js#L71-L82))
+- Ignores slashBreaks within args (see [test](https://github.com/minimistjs/minimist/blob/2edc957fb668c81e2bd9e93748866a30ab33b28e/test/parse.js#L159-L169))
+- Ignores dot-nested flags (see [test](https://github.com/minimistjs/minimist/blob/2edc957fb668c81e2bd9e93748866a30ab33b28e/test/parse.js#L192-L209))
 
 #### yargs-parser
 
