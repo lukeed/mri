@@ -1,15 +1,15 @@
 type Dict<T> = Record<string, T>;
-type Arrayable<T> = T | T[];
+type Arrayable<T> = T | readonly T[];
 type Default = Dict<any>;
 
-declare function mri<T=Default>(args?: string[], options?: mri.Options): mri.Argv<T>;
+declare function mri<T=Default>(args?: string[], options?: mri.Options<T>): mri.Argv<T>;
 
 declare namespace mri {
-	export interface Options {
+	export interface Options<D extends Dict<any> =Default> {
 		boolean?: Arrayable<string>;
 		string?: Arrayable<string>;
 		alias?: Dict<Arrayable<string>>;
-		default?: Dict<any>;
+		default?: D;
 		unknown?(flag: string): void;
 	}
 
