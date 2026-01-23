@@ -34,3 +34,17 @@ test('already a number', t => {
 	t.is(typeof argv.x, 'number');
 	t.end();
 });
+
+test('leading zeros remain numbers', t => {
+	const argv = fn(['--n', '0123', '--m', '007']);
+	t.is(argv.n, 123);
+	t.is(typeof argv.n, 'number');
+	t.is(argv.m, 7);
+	t.is(typeof argv.m, 'number');
+	t.end();
+});
+
+// BigInt tests are in _bigint.js - only run when BigInt is available (Node 10.4+)
+if (typeof BigInt !== 'undefined') {
+	require('./_bigint.js');
+}
