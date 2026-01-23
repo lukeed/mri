@@ -6,8 +6,8 @@ function toNum(val) {
 	if (typeof val !== 'string') return val;
 	var x = +val;
 	if (x * 0 !== 0) return val; // NaN check
-	// Only use BigInt for integer strings that lose precision
-	if (String(x) !== val && /^-?\d+$/.test(val)) return BigInt(val);
+	// Only use BigInt for integers that exceed safe range
+	if (String(x) !== val && /^-?\d+$/.test(val) && Math.abs(x) > Number.MAX_SAFE_INTEGER) return BigInt(val);
 	return x;
 }
 

@@ -63,3 +63,25 @@ test('large negative integers', t => {
 	t.is(typeof argv.id, 'bigint');
 	t.end();
 });
+
+test('MIN_SAFE_INTEGER boundary', t => {
+	// MIN_SAFE_INTEGER = -9007199254740991
+	const argv = fn([
+		'--safe=-9007199254740991',
+		'--unsafe=-9007199254740993'
+	]);
+	t.is(argv.safe, -9007199254740991);
+	t.is(typeof argv.safe, 'number');
+	t.is(argv.unsafe, -9007199254740993n);
+	t.is(typeof argv.unsafe, 'bigint');
+	t.end();
+});
+
+test('leading zeros remain numbers', t => {
+	const argv = fn(['--n', '0123', '--m', '007']);
+	t.is(argv.n, 123);
+	t.is(typeof argv.n, 'number');
+	t.is(argv.m, 7);
+	t.is(typeof argv.m, 'number');
+	t.end();
+});
