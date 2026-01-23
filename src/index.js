@@ -2,12 +2,21 @@ function toArr(any) {
 	return any == null ? [] : Array.isArray(any) ? any : [any];
 }
 
+function toNum(val) {
+	if (typeof val !== 'string') return val;
+	var x = +val;
+	if (x * 0 !== 0) return val; // NaN check
+	// Only use BigInt for integer strings that lose precision
+	if (String(x) !== val && /^-?\d+$/.test(val)) return BigInt(val);
+	return x;
+}
+
 function toVal(out, key, val, opts) {
 	var x, old=out[key], nxt=(
 		!!~opts.string.indexOf(key) ? (val == null || val === true ? '' : String(val))
 		: typeof val === 'boolean' ? val
-		: !!~opts.boolean.indexOf(key) ? (val === 'false' ? false : val === 'true' || (out._.push((x = +val,x * 0 === 0) ? x : val),!!val))
-		: (x = +val,x * 0 === 0) ? x : val
+		: !!~opts.boolean.indexOf(key) ? (val === 'false' ? false : val === 'true' || (out._.push(toNum(val)),!!val))
+		: toNum(val)
 	);
 	out[key] = old == null ? nxt : (Array.isArray(old) ? old.concat(nxt) : [old, nxt]);
 }
