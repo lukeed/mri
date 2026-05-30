@@ -59,7 +59,7 @@ export default function (args, opts) {
 		}
 	}
 
-	const keys = strict ? Object.keys(opts.alias) : [];
+	const keys = strict ? Object.keys(opts.alias).concat(opts.boolean, opts.string) : [];
 
 	for (i=0; i < len; i++) {
 		arg = args[i];
