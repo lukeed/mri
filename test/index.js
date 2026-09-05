@@ -249,6 +249,29 @@ test('multiAlias', t => {
 	t.end();
 });
 
+test('alias values set independently on both short and long forms are merged, not overwritten', t => {
+	const opts = { alias: { H: 'header' } };
+
+	const argv1 = fn(['-H', 'one', '--header=two'], opts);
+	t.deepEqual(argv1.H, ['one', 'two'], 'H combines both values');
+	t.deepEqual(argv1.header, ['one', 'two'], 'header combines both values');
+
+	const argv2 = fn(['-H', 'one', '--header', 'two'], opts);
+	t.deepEqual(argv2.H, ['one', 'two']);
+	t.deepEqual(argv2.header, ['one', 'two']);
+
+	// still works the same as before when only one side is ever used
+	const argv3 = fn(['-H', 'one', '-H', 'two'], opts);
+	t.deepEqual(argv3.H, ['one', 'two']);
+	t.deepEqual(argv3.header, ['one', 'two']);
+
+	const argv4 = fn(['--header', 'one', '--header', 'two'], opts);
+	t.deepEqual(argv4.header, ['one', 'two']);
+	t.deepEqual(argv4.H, ['one', 'two']);
+
+	t.end();
+});
+
 // test('nested dotted objects', t => {
 //    const argv = fn([
 //        '--foo.bar', '3', '--foo.baz', '4',

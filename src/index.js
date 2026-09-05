@@ -98,6 +98,8 @@ export default function (args, opts) {
 		}
 	}
 
+	var parsedKeys = Object.keys(out);
+
 	if (defaults) {
 		for (k in opts.default) {
 			if (out[k] === void 0) {
@@ -107,10 +109,22 @@ export default function (args, opts) {
 	}
 
 	if (alibi) {
-		for (k in out) {
-			arr = opts.alias[k] || [];
-			while (arr.length > 0) {
-				out[arr.shift()] = out[k];
+		var outKeys = Object.keys(out);
+		var seen = {};
+		for (i=0; i < outKeys.length; i++) {
+			k = outKeys[i];
+			if (seen[k]) continue;
+			var group = [k].concat(opts.alias[k] || []);
+			var merged = void 0;
+			for (j=0; j < group.length; j++) {
+				if (!~parsedKeys.indexOf(group[j])) continue;
+				val = out[group[j]];
+				merged = merged === void 0 ? val : (Array.isArray(merged) ? merged.concat(val) : [merged, val]);
+			}
+			if (merged === void 0) merged = out[k];
+			for (j=0; j < group.length; j++) {
+				out[group[j]] = merged;
+				seen[group[j]] = true;
 			}
 		}
 	}
