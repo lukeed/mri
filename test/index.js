@@ -313,18 +313,34 @@ test('flag boolean with default & alias', t => {
 	t.end();
 });
 
-test('flag boolean with default string & alias', t => {
-	const foo = fn(['-t'], { default: { t:'hi' }});
-	t.same(foo, { t:'', _:[] });
-	t.is(typeof foo.t, 'string');
+	test('flag boolean with default string & alias', t => {
+		const foo = fn(['-t'], { default: { t:'hi' }});
+		t.same(foo, { t:'', _:[] });
+		t.is(typeof foo.t, 'string');
 
-	const bar = fn(['-t'], { alias:{ t:'tt' }, default: { t:'boo' }});
-	t.same(bar, { t:'', tt:'', _:[] });
-	t.is(typeof bar.t, 'string');
+		const bar = fn(['-t'], { alias:{ t:'tt' }, default: { t:'boo' }});
+		t.same(bar, { t:'', tt:'', _:[] });
+		t.is(typeof bar.t, 'string');
 
-	// --no-* overrides
-	const baz = fn(['--no-two'], { default: { two:'hi' }});
-	t.same(baz, { two:false, _:[] });
-	t.is(typeof baz.two, 'boolean');
-	t.end();
-});
+		// --no-* overrides
+		const baz = fn(['--no-two'], { default: { two:'hi' }});
+		t.same(baz, { two:false, _:[] });
+		t.is(typeof baz.two, 'boolean');
+		t.end();
+	});
+
+	test('flag boolean and string', t => {
+		var a = fn(['--foo'], { boolean: ['foo'], string: ['foo'] });
+		t.deepEqual(a, { _: [], foo: true });
+
+		var b = fn(['--foo', '--bar'], { boolean: ['foo'], string: ['foo'] });
+		t.deepEqual(b, { _: [], foo: true, bar: true });
+
+		var c = fn(['--foo', 'hello'], { boolean: ['foo'], string: ['foo'] });
+		t.deepEqual(c, { _: [], foo: 'hello' });
+
+		var d = fn(['--foo', ''], { boolean: ['foo'], string: ['foo'] });
+		t.deepEqual(d, { _: [], foo: '' });
+
+		t.end();
+	});
