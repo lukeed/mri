@@ -1,6 +1,13 @@
 const test = require('tape');
 const fn = require('../lib');
 
+test('empty assigned string values preserve following arguments', t => {
+	t.deepEqual(fn(['--name=', 'file.txt'], { string: 'name' }), { name: '', _: ['file.txt'] });
+	t.deepEqual(fn(['-n=', 'file.txt'], { string: 'n' }), { n: '', _: ['file.txt'] });
+	t.deepEqual(fn(['--name=', '--verbose'], { string: 'name' }), { name: '', verbose: true, _: [] });
+	t.end();
+});
+
 test('parse args', t => {
 	const res1 = fn(['--no-moo']);
 	const res2 = fn(['-v', 'a', '-v', 'b', '-v', 'c']);
