@@ -1,15 +1,31 @@
+function get(obj, key) {
+	return Object.prototype.hasOwnProperty.call(obj, key) ? obj[key] : void 0;
+}
+
+function set(obj, key, val) {
+	if (key === '__proto__') {
+		Object.defineProperty(obj, key, {
+			value: val,
+			writable: true,
+			enumerable: true,
+			configurable: true
+		});
+	} else obj[key] = val;
+	return val;
+}
+
 function toArr(any) {
 	return any == null ? [] : Array.isArray(any) ? any : [any];
 }
 
 function toVal(out, key, val, opts) {
-	var x, old=out[key], nxt=(
+	var x, old=get(out, key), nxt=(
 		!!~opts.string.indexOf(key) ? (val == null || val === true ? '' : String(val))
 		: typeof val === 'boolean' ? val
 		: !!~opts.boolean.indexOf(key) ? (val === 'false' ? false : val === 'true' || (out._.push((x = +val,x * 0 === 0) ? x : val),!!val))
 		: (x = +val,x * 0 === 0) ? x : val
 	);
-	out[key] = old == null ? nxt : (Array.isArray(old) ? old.concat(nxt) : [old, nxt]);
+	set(out, key, old == null ? nxt : (Array.isArray(old) ? old.concat(nxt) : [old, nxt]));
 }
 
 export default function (args, opts) {
@@ -29,27 +45,27 @@ export default function (args, opts) {
 
 	if (alibi) {
 		for (k in opts.alias) {
-			arr = opts.alias[k] = toArr(opts.alias[k]);
+			arr = set(opts.alias, k, toArr(opts.alias[k]));
 			for (i=0; i < arr.length; i++) {
-				(opts.alias[arr[i]] = arr.concat(k)).splice(i, 1);
+				set(opts.alias, arr[i], arr.concat(k)).splice(i, 1);
 			}
 		}
 	}
 
 	for (i=opts.boolean.length; i-- > 0;) {
-		arr = opts.alias[opts.boolean[i]] || [];
+		arr = get(opts.alias, opts.boolean[i]) || [];
 		for (j=arr.length; j-- > 0;) opts.boolean.push(arr[j]);
 	}
 
 	for (i=opts.string.length; i-- > 0;) {
-		arr = opts.alias[opts.string[i]] || [];
+		arr = get(opts.alias, opts.string[i]) || [];
 		for (j=arr.length; j-- > 0;) opts.string.push(arr[j]);
 	}
 
 	if (defaults) {
 		for (k in opts.default) {
 			name = typeof opts.default[k];
-			arr = opts.alias[k] = opts.alias[k] || [];
+			arr = set(opts.alias, k, get(opts.alias, k) || []);
 			if (opts[name] !== void 0) {
 				opts[name].push(k);
 				for (i=0; i < arr.length; i++) {
@@ -80,7 +96,7 @@ export default function (args, opts) {
 			if (strict && !~keys.indexOf(name)) {
 				return opts.unknown(arg);
 			}
-			out[name] = false;
+			set(out, name, false);
 		} else {
 			for (idx=j+1; idx < arg.length; idx++) {
 				if (arg.charCodeAt(idx) === 61) break; // "="
@@ -100,17 +116,17 @@ export default function (args, opts) {
 
 	if (defaults) {
 		for (k in opts.default) {
-			if (out[k] === void 0) {
-				out[k] = opts.default[k];
+			if (get(out, k) === void 0) {
+				set(out, k, opts.default[k]);
 			}
 		}
 	}
 
 	if (alibi) {
 		for (k in out) {
-			arr = opts.alias[k] || [];
+			arr = get(opts.alias, k) || [];
 			while (arr.length > 0) {
-				out[arr.shift()] = out[k];
+				set(out, arr.shift(), out[k]);
 			}
 		}
 	}
