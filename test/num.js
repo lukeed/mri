@@ -34,3 +34,20 @@ test('already a number', t => {
 	t.is(typeof argv.x, 'number');
 	t.end();
 });
+
+
+test('negative numbers as separate flag values', t => {
+	for (const flag of ['-n', '--number']) {
+		const name = flag === '-n' ? 'n' : 'number';
+		for (const value of ['-5', '-0.5', '-.5', '-1e3']) {
+			t.same(fn([flag, value]), { _: [], [name]: Number(value) });
+		}
+	}
+
+	t.same(fn(['--number', '-5', '--other']), { _: [], number: -5, other: true });
+	t.same(fn(['--number', '--other']), { _: [], number: true, other: true });
+	t.same(fn(['--number', '--', '-5']), { _: ['-5'], number: true });
+	t.same(fn(['--number', '-5'], { string: 'number' }), { _: [], number: '-5' });
+	t.same(fn(['--verbose', '-5'], { boolean: 'verbose' }), { _: [-5], verbose: true });
+	t.end();
+});

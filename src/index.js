@@ -87,7 +87,7 @@ export default function (args, opts) {
 			}
 
 			name = arg.substring(j, idx);
-			val = arg.substring(++idx) || (i+1 === len || (''+args[i+1]).charCodeAt(0) === 45 || args[++i]);
+			val = arg.substring(++idx) || (i+1 === len || ((''+args[i+1]).charCodeAt(0) === 45 && args[i+1]*0 !== 0) || args[++i]);
 			arr = (j === 2 ? [name] : name);
 
 			for (idx=0; idx < arr.length; idx++) {
