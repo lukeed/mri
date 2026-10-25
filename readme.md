@@ -95,7 +95,7 @@ Callback that is run when a parsed flag has not been defined as a known key or a
 
 Once an unknown flag is encountered, parsing will terminate, regardless of your return value.
 
-> **Note:** `mri` _only_ checks for unknown flags if `options.unknown` **and** `options.alias` are populated. Otherwise, everything will be accepted.
+> **Note:** Providing an `options.unknown` callback enables checking for unknown flags, even when `options.alias` is not provided. Without this callback, unknown flags are accepted.
 
 
 ## Comparisons
