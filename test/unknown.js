@@ -78,3 +78,61 @@ test('default and alias is not unknown', t => {
 // 	t.same(argv, { '--': ['good', 'arg'], '_': [] });
 // 	t.end();
 // });
+
+test('unaliased string declarations are known in strict mode', t => {
+	const unknown = [];
+	const argv = fn(['--bar', 'value'], {
+		alias: { f: 'foo' },
+		string: ['foo', 'bar'],
+		unknown: arg => unknown.push(arg)
+	});
+	t.same(argv, { _: [], bar: 'value' });
+	t.same(unknown, []);
+	t.end();
+});
+
+test('string declarations are known without any aliases', t => {
+	const argv = fn(['-b', '5', '--name=hello'], {
+		string: ['b', 'name'],
+		unknown: () => false
+	});
+	t.same(argv, { _: [], b: '5', name: 'hello' });
+	t.end();
+});
+
+test('boolean declarations accept short, long and negated flags', t => {
+	const argv = fn(['-v', '--enabled', '--no-cache'], {
+		boolean: ['v', 'enabled', 'cache'],
+		unknown: () => false
+	});
+	t.same(argv, { _: [], v: true, enabled: true, cache: false });
+	t.end();
+});
+
+test('single string and boolean declarations are known', t => {
+	t.same(fn(['--name=hello'], { string: 'name', unknown: () => false }), { _: [], name: 'hello' });
+	t.same(fn(['--verbose'], { boolean: 'verbose', unknown: () => false }), { _: [], verbose: true });
+	t.end();
+});
+
+test('strict mode still rejects undeclared flags after known flags', t => {
+	const unknown = [];
+	const argv = fn(['--name=hello', '--other', '--name=ignored'], {
+		string: ['name'],
+		unknown: arg => (unknown.push(arg), false)
+	});
+	t.same(argv, false);
+	t.same(unknown, ['--other']);
+	t.end();
+});
+
+test('strict mode still rejects undeclared negated flags', t => {
+	const unknown = [];
+	const argv = fn(['--no-other'], {
+		boolean: ['cache'],
+		unknown: arg => (unknown.push(arg), false)
+	});
+	t.same(argv, false);
+	t.same(unknown, ['--no-other']);
+	t.end();
+});
