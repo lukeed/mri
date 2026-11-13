@@ -3,13 +3,14 @@ function toArr(any) {
 }
 
 function toVal(out, key, val, opts) {
-	var x, old=out[key], nxt=(
+	var x, i, arr=opts.alias[key] || [], old=out[key], nxt=(
 		!!~opts.string.indexOf(key) ? (val == null || val === true ? '' : String(val))
 		: typeof val === 'boolean' ? val
 		: !!~opts.boolean.indexOf(key) ? (val === 'false' ? false : val === 'true' || (out._.push((x = +val,x * 0 === 0) ? x : val),!!val))
 		: (x = +val,x * 0 === 0) ? x : val
 	);
 	out[key] = old == null ? nxt : (Array.isArray(old) ? old.concat(nxt) : [old, nxt]);
+	for (i=0; i < arr.length; i++) out[arr[i]] = out[key];
 }
 
 export default function (args, opts) {
@@ -109,8 +110,8 @@ export default function (args, opts) {
 	if (alibi) {
 		for (k in out) {
 			arr = opts.alias[k] || [];
-			while (arr.length > 0) {
-				out[arr.shift()] = out[k];
+			for (i=0; i < arr.length; i++) {
+				out[arr[i]] = out[k];
 			}
 		}
 	}

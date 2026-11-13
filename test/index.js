@@ -249,6 +249,19 @@ test('multiAlias', t => {
 	t.end();
 });
 
+test('alias with multiple values', t => {
+	const alias = { H: 'header' };
+	t.deepEqual(
+		fn(['-H', 'one', '--header=two'], { alias }),
+		{ _: [], H: ['one', 'two'], header: ['one', 'two'] }
+	);
+	t.deepEqual(
+		fn(['--header', 'one', '-H', 'two', '--header', 'three'], { alias }),
+		{ _: [], header: ['one', 'two', 'three'], H: ['one', 'two', 'three'] }
+	);
+	t.end();
+});
+
 // test('nested dotted objects', t => {
 //    const argv = fn([
 //        '--foo.bar', '3', '--foo.baz', '4',
