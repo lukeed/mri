@@ -17,7 +17,7 @@ export default function (args, opts) {
 	opts = opts || {};
 
 	var k, arr, arg, name, val, out={ _:[] };
-	var i=0, j=0, idx=0, len=args.length;
+	var i=0, j=0, idx=0, sp=0, len=args.length;
 
 	const alibi = opts.alias !== void 0;
 	const strict = opts.unknown !== void 0;
@@ -71,6 +71,14 @@ export default function (args, opts) {
 
 		for (j=0; j < arg.length; j++) {
 			if (arg.charCodeAt(j) !== 45) break; // "-"
+		}
+
+		// a single argv element that contains whitespace is not a flag:
+		// '-c foo' stays one positional instead of splitting into
+		// -c, ' ', -f, -o. Values after `--key=` may still contain spaces.
+		if (j > 0 && (sp = arg.search(/\s/)) !== -1 && (arg.indexOf('=') === -1 || arg.indexOf('=') > sp)) {
+			out._.push(arg);
+			continue;
 		}
 
 		if (j === 0) {

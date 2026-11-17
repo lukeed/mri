@@ -71,6 +71,22 @@ test('flag boolean value', t => {
 	t.end();
 });
 
+test('arg containing whitespace is a positional, not flags', t => {
+	// a single argv element like '-c foo' must stay one positional
+	t.deepEqual(
+		fn(['-a', '-b', '-c foo']),
+		{ _: ['-c foo'], a: true, b: true }
+	);
+
+	// ... but `--key=value` keeps working when the value has spaces
+	t.deepEqual(
+		fn(['--foo=bar baz']),
+		{ _: [], foo: 'bar baz' }
+	);
+
+	t.end();
+});
+
 test('flag default value', t => {
 	const res = fn(['--foo'], {
 		default: { bar: true }
