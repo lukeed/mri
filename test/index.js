@@ -71,6 +71,29 @@ test('flag boolean value', t => {
 	t.end();
 });
 
+test('flag boolean does not convert following positional to number', t => {
+	const opts = { boolean: ['flag'] };
+
+	// positional values are always strings; the value after a boolean
+	// flag is a positional too, so it must not be number-converted
+	t.deepEqual(
+		fn(['--flag', '10', '20', 'xx', '40'], opts),
+		{ flag: true, _: ['10', '20', 'xx', '40'] }
+	);
+
+	t.deepEqual(
+		fn(['10', '--flag', '20', 'xx', '40'], opts),
+		{ flag: true, _: ['10', '20', 'xx', '40'] }
+	);
+
+	t.deepEqual(
+		fn(['10', '20', 'xx', '40'], opts),
+		{ _: ['10', '20', 'xx', '40'] }
+	);
+
+	t.end();
+});
+
 test('flag default value', t => {
 	const res = fn(['--foo'], {
 		default: { bar: true }
@@ -270,7 +293,7 @@ test('multiAlias', t => {
 
 test('parse with modifier functions' , t => {
 	const argv = fn(['-b', '123'], { boolean:'b' });
-	t.same(argv, { b:true, _:[123] });
+	t.same(argv, { b:true, _:['123'] });
 	t.end();
 });
 
