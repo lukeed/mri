@@ -6,7 +6,7 @@ function toVal(out, key, val, opts) {
 	var x, old=out[key], nxt=(
 		!!~opts.string.indexOf(key) ? (val == null || val === true ? '' : String(val))
 		: typeof val === 'boolean' ? val
-		: !!~opts.boolean.indexOf(key) ? (val === 'false' ? false : val === 'true' || (out._.push((x = +val,x * 0 === 0) ? x : val),!!val))
+		: !!~opts.boolean.indexOf(key) ? (val === 'false' ? false : val === 'true' || (out._.push(val),!!val))
 		: (x = +val,x * 0 === 0) ? x : val
 	);
 	out[key] = old == null ? nxt : (Array.isArray(old) ? old.concat(nxt) : [old, nxt]);
