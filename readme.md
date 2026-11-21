@@ -142,8 +142,33 @@ Once an unknown flag is encountered, parsing will terminate, regardless of your 
 - No [additional configuration](https://github.com/yargs/yargs-parser#configuration) object
 - Added [`options.unknown`](#optionsunknown) feature
 
+### Migrating a parser call
+
+For a direct `minimist` or `yargs-parser` call, start by passing the same argument array to `mri`. The shared `alias`, `boolean`, `string`, and `default` options provide a starting point; check the differences above against the flags your application uses.
+
+```js
+const mri = require('mri');
+
+const parsed = mri(['-v', '--output', 'result.txt', 'input.txt'], {
+  alias: { v: 'verbose', o: 'output' },
+  boolean: ['verbose'],
+  string: ['output']
+});
+//=> { _: ['input.txt'], v: true, verbose: true, output: 'result.txt', o: 'result.txt' }
+```
+
+Before switching, compare the returned objects for your real command lines, including aliases, repeated flags, defaults, negative values, and arguments after `--`. Options absent from `mri` need to be handled by your application.
+
+`yargs` is a CLI framework; `yargs-parser` is its argument parser. Replacing a standalone `yargs-parser` call does not replace a `yargs` command definition. `mri` does not provide a `yargs` integration or its command routing, help generation, validation, and completion features. If you use those features, account for them before moving to a standalone parser.
+
 
 ## Benchmarks
+
+In [the benchmark](bench/index.js), one operation is one complete parser call on `['-b', '--bool', '--no-meep', '--multi=baz']`, with no options object. `ops/sec` measures repeated calls after the modules have loaded. The separate load-time measurements time `require()` calls; neither measurement includes launching Node.js or running an entire CLI command.
+
+For scale, the historical numbers below correspond to about **0.62 microseconds** per `mri` parse and **32.7 microseconds** per `yargs-parser` parse (`1,000,000 / ops/sec`). They describe that small input on that environment, not the cost of parsing a complete Git or Docker CLI. Input size, options, package versions, and hardware affect the results.
+
+A parser's cost matters most when parsing repeatedly or keeping a short-lived CLI's startup overhead small. For a command that parses once and then spends seconds doing other work, the absolute saving may be negligible. Measure your whole command and choose the features you need; a throughput ratio alone does not predict the user's wait.
 
 > Running Node.js v10.13.0
 
