@@ -270,7 +270,7 @@ test('multiAlias', t => {
 
 test('parse with modifier functions' , t => {
 	const argv = fn(['-b', '123'], { boolean:'b' });
-	t.same(argv, { b:true, _:[123] });
+	t.same(argv, { b:true, _:['123'] });
 	t.end();
 });
 
