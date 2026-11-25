@@ -34,3 +34,9 @@ test('already a number', t => {
 	t.is(typeof argv.x, 'number');
 	t.end();
 });
+
+test('positional numeric strings stay strings after boolean flags', t => {
+	const argv = fn(['--flag', '10', '20', 'xx', '40'], { boolean: ['flag'] });
+	t.same(argv, { _: ['10', '20', 'xx', '40'], flag: true });
+	t.end();
+});
